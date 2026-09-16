@@ -1,0 +1,9 @@
+{
+  "name": "simulador-vetores-distancia",
+  "version": "1.0.0",
+  "description": "Simulador Interativo de Vetores de Distância (Bellman-Ford / RIP) para Redes de Computadores II - UFPA",
+  "type": "module",
+  "scripts": {
+    "test": "node tests/test_engine.js && node tests/test_presets.js"
+  }
+}

@@ -1,0 +1,430 @@
+/**
+ * style.css - Folha de Estilos Principal
+ * Design System moderno, tema escuro profissional (Dark Slate/Cyan), totalmente responsivo.
+ */
+
+:root {
+  --bg-main: #090d16;
+  --bg-card: #0f172a;
+  --bg-card-secondary: #1e293b;
+  --border-color: #334155;
+  --border-highlight: #38bdf8;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --accent-cyan: #38bdf8;
+  --accent-blue: #3b82f6;
+  --accent-indigo: #6366f1;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-rose: #ef4444;
+
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Consolas, Monaco, monospace;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   Cabeçalho da Aplicação
+   ========================================================= */
+.app-header {
+  background: linear-gradient(180deg, #111827 0%, #0f172a 100%);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #0284c7, #6366f1);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.brand-titles h1 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-tests-header {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff;
+  border: 1px solid #34d399;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+}
+
+.btn-tests-header:hover {
+  background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.5);
+}
+
+/* =========================================================
+   Barra Superior de Cenários (Presets)
+   ========================================================= */
+.preset-bar {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preset-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.preset-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.preset-description-box {
+  background-color: rgba(30, 41, 59, 0.6);
+  border-left: 3px solid var(--accent-cyan);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   Barra de Controles de Simulação (Toolbar)
+   ========================================================= */
+.toolbar {
+  background-color: #0b1120;
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* =========================================================
+   Layout Principal (Canvas + Painéis Laterais)
+   ========================================================= */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  flex: 1;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+/* Área Esquerda: Topologia Canvas */
+.canvas-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: #030712;
+  position: relative;
+  border-right: 1px solid var(--border-color);
+  min-height: 380px;
+}
+
+.canvas-container {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+}
+
+#network-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none; /* Melhora arraste touch em telas sensíveis */
+}
+
+.canvas-overlay-hints {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  right: 12px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  pointer-events: none;
+}
+
+.hint-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Área Direita: Painéis de Inspeção e Tabelas */
+.sidebar-panel {
+  background-color: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-left: 1px solid var(--border-color);
+  max-height: calc(100vh - 220px);
+}
+
+.sidebar-section {
+  padding: 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Rodapé / Console de Eventos */
+.log-section {
+  background-color: #0b1120;
+  padding: 12px 14px;
+  flex: 1;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-log-container {
+  flex: 1;
+  background-color: #030712;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  overflow-y: auto;
+  max-height: 200px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   REGRAS DE RESPONSIVIDADE (Breakpoints)
+   ========================================================= */
+
+/* Laptops e Telas Médias (≤ 1200px) */
+@media (max-width: 1200px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+  }
+
+  .canvas-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .canvas-container {
+    height: clamp(380px, 48vh, 560px);
+    min-height: 380px;
+  }
+
+  .sidebar-panel {
+    border-left: none;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+}
+
+/* Tablets e iPads (≤ 900px) */
+@media (max-width: 900px) {
+  .app-header {
+    padding: 8px 14px;
+  }
+
+  .brand-titles h1 {
+    font-size: 15px;
+  }
+
+  .brand-subtitle {
+    font-size: 11px;
+  }
+
+  .preset-bar {
+    padding: 8px 14px;
+  }
+
+  .preset-controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .preset-controls-row select {
+    width: 100%;
+    min-width: unset !important;
+  }
+
+  .toolbar {
+    padding: 8px 14px;
+    gap: 10px;
+  }
+
+  .toolbar-group {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .canvas-container {
+    height: clamp(320px, 44vh, 480px);
+    min-height: 320px;
+  }
+
+  .tour-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .tour-controls {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
+
+/* Smartphones e Telas Pequenas (≤ 600px) */
+@media (max-width: 600px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .header-brand {
+    justify-content: space-between;
+  }
+
+  .header-status {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .btn-tests-header {
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .canvas-container {
+    height: 320px;
+    min-height: 300px;
+  }
+
+  .canvas-overlay-hints {
+    display: none; /* Economiza espaço precioso no mobile */
+  }
+
+  .btn {
+    padding: 8px 12px;
+    min-height: 40px; /* Área de toque recomendada em mobile */
+  }
+
+  .tour-narration-box {
+    font-size: 12.5px;
+    padding: 8px 12px;
+  }
+
+  .formula-math {
+    font-size: 12px;
+    overflow-x: auto;
+  }
+
+  .terms-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .test-modal-dialog {
+    max-height: 95vh;
+  }
+}
