@@ -129,46 +129,6 @@ flowchart LR
 
 ---
 
-## 🎤 Roteiro para Apresentação Oral (10 min)
-
-Guia passo a passo pronto para ser utilizado em sala de aula perante o professor e colegas:
-
-```
-[00:00 - 01:30] INTRODUÇÃO & OBJETIVOS
-• "Boa noite a todos. Nosso projeto é um simulador interativo voltado ao estudo
-  do algoritmo de Vetores de Distância, Bellman-Ford e o protocolo RIP."
-• Projetar a tela inicial e destacar a interface com Canvas a 60 FPS e as tabelas
-  de roteamento dinâmicas.
-
-[01:30 - 03:30] DEMONSTRAÇÃO 1: CONVERGÊNCIA BÁSICA
-• Carregar o "Cenário 1: Convergência Básica (Triângulo)".
-• Clicar em "⏭ Avançar 1 Passo": mostrar os pacotes coloridos trafegando pelos cabos.
-• Explicar a tabela do nó A: mesmo tendo enlace direto para C com custo 5,
-  ele aprende via B a rota com custo 3 (1 + 2).
-• Abrir o "Inspetor Matemático" e exibir a comparação da equação no modal.
-
-[03:30 - 06:00] DEMONSTRAÇÃO 2: CONTAGEM ATÉ O INFINITO (O Ponto Crítico)
-• Carregar o "Cenário 2: Contagem até o Infinito".
-• Simular a falha: clicar no botão vermelho "⚡ Simular Queda do Enlace B — C".
-• Avançar os passos em velocidade 1x e acompanhar a tabela:
-  "Vejam os custos subindo: 3, 4, 5, 6... 16."
-• Explicar a ilusão de roteamento: B acha que A chega a C, e A acha que B chega a C.
-
-[06:00 - 08:00] DEMONSTRAÇÃO 3: POISONED REVERSE EM AÇÃO
-• Carregar o "Cenário 3: Solução com Poisoned Reverse".
-• Destacar que agora o Poisoned Reverse está ativo.
-• Provocar novamente a queda do cabo B — C.
-• Avançar 1 único passo: B reconhece instantaneamente a métrica ∞ via A.
-• Concluir: o loop que levou 15 iterações no Cenário 2 foi resolvido em 1 rodada.
-
-[08:00 - 10:00] TOPOLOGIA UFPA & CONCLUSÃO
-• Carregar o "Cenário 6: Rede do Campus UFPA".
-• Demonstrar o arrasto de roteadores e a resiliência da malha universitária.
-• Abrir para dúvidas e considerações do professor.
-```
-
----
-
 ## 🏗️ Arquitetura do Projeto
 
 O simulador foi concebido seguindo princípios de arquitetura modular, com separação estrita entre motor matemático, camada de renderização gráfica e interface:
