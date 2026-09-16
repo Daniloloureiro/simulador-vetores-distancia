@@ -1,49 +1,239 @@
-# 🌐 Simulador Interativo de Vetores de Distância (Bellman-Ford / RIP)
-### Universidade Federal do Pará (UFPA) — Redes de Computadores II
+<div align="center">
 
-Aplicação web interativa para demonstração visual, matemática e experimental do algoritmo de **Vetores de Distância (Distance Vector)**, a equação de **Bellman-Ford**, o problema da **Contagem até o Infinito (*Count-to-Infinity*)** e as técnicas de mitigação **Split Horizon** e **Poisoned Reverse** (base do protocolo **RIP - RFC 2453**).
+# 🌐 Simulador Interativo de Vetores de Distância
+### Bellman-Ford & Protocolo RIP (RFC 2453)
+**Universidade Federal do Pará (UFPA) — Redes de Computadores II**
+
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Daniloloureiro/simulador-vetores-distancia)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B%20Vanilla-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](js/)
+[![HTML5 & Canvas](https://img.shields.io/badge/HTML5-Canvas%2060%20FPS-E34F26?style=for-the-badge&logo=html5&logoColor=white)](index.html)
+[![Tests: Passing](https://img.shields.io/badge/Tests-100%25%20Passing-brightgreen?style=for-the-badge&logo=node.js&logoColor=white)](tests/)
+[![Academic: UFPA](https://img.shields.io/badge/Instituição-UFPA-003366?style=for-the-badge)](https://www.ufpa.br)
+
+<br/>
+
+> **Uma plataforma educacional interativa de alto impacto visual para aprendizado, experimentação matemática e demonstração do algoritmo de Vetor de Distâncias, loops de roteamento e técnicas de mitigação.**
+
+[Recursos Principais](#-recursos-principais) •
+[Cenários Didáticos](#-cenários-didáticos-inclusos) •
+[Roteiro de Apresentação](#-roteiro-para-apresentação-oral-10-min) •
+[Arquitetura](#-arquitetura-do-projeto) •
+[Como Executar](#-como-executar) •
+[Autor](#-autor--créditos)
 
 ---
 
-## 📸 Funcionalidades do Projeto
+</div>
 
-* 🎮 **Topologia Totalmente Interativa (Canvas 60 FPS)**:
-  * Arraste roteadores livremente pela tela.
-  * **Clique em qualquer enlace** para simular corte/queda do cabo (Link Failure) em tempo real.
-  * **Shift + Clique no enlace** para editar o custo/métrica da rota.
-  * Botões para adicionar novos roteadores e enlaces personalizados.
-* 📦 **Animação Fluida de Pacotes em Trânsito**:
-  * Visualização de mensagens e vetores trafegando pelos cabos com selos indicando o vetor transmitido.
-  * Efeitos de impacto e partículas quando pacotes chegam aos nós de destino.
-* 📊 **Tabelas de Roteamento Dinâmicas**:
-  * Exibição das tabelas de todos os roteadores lado a lado com Destino, Métrica e Próximo Salto (*Next Hop*).
-  * Destaque visual colorido: verde para rotas aprendidas/melhoradas e vermelho para rotas inalcançáveis ($\infty$).
-* 🔬 **Inspetor Matemático de Bellman-Ford**:
-  * Clique em qualquer linha de tabela ou roteador para abrir a fórmula detalhada:
-    $$D_x(y) = \min_v \{ c(x, v) + D_v(y) \}$$
-  * Tabela com todos os vizinhos $v$, custo do enlace $c(x, v)$, distância informada $D_v(y)$, soma total e destaque da rota ótima escolhida.
-* 🎬 **6 Simulações Pré-Prontas com Storyboards Narrados (Apresentação Guiada)**:
-  1. **Convergência Básica (Triângulo A-B-C)**: Descoberta inicial, troca de vetores e escolha do caminho indireto $A \to B \to C$ (custo 3 vs 5).
-  2. **Contagem até o Infinito (Count-to-Infinity Completo)**: Queda do enlace $B-C$ sem mitigação, gerando o loop de roteamento com custos subindo até 16.
-  3. **Solução Eficaz com Poisoned Reverse**: Mesma quebra de cabo, mas com Poisoned Reverse, resolvendo o problema em apenas 1 iteração.
-  4. **Roteamento Dinâmico & Recuperação de Falha (Malha)**: Desvio para rota secundária durante corte e reconvergência automática após o reparo.
-  5. **Exemplo Canônico de Kurose & Ross (Livro-Texto)**: Topologia exata de 6 nós do Capítulo 5 do livro de redes.
-  6. **Rede do Campus Universitário UFPA (Belém)**: Reitoria, Setor Básico, Setor Profissional, Mirante do Rio e Datacenter / CTIC.
-* 🎙️ **Player de Apresentação Integrado**:
-  * Botões "▶ Tocar Demonstração", "⏮ Anterior", "⏭ Próxima Etapa" e barra de progresso visual.
-  * Caixa de narração com linguagem clara para leitura direta durante a apresentação.
+## 📌 Contexto & Propósito Acadêmico
+
+Este simulador foi concebido e desenvolvido para a disciplina de **Redes de Computadores II** na **Universidade Federal do Pará (UFPA)**. O objetivo é superar a abstração teórica comumente associada ao ensino de algoritmos de roteamento, permitindo que estudantes e professores:
+
+1. **Visualizem fisicamente** a troca assíncrona de vetores de distância através de pacotes animados trafegando pelos enlaces.
+2. **Inspecionem passo a passo a matemática** por trás de cada decisão de roteamento conforme a equação canônica de **Bellman-Ford**.
+3. **Provoquem falhas dinâmicas** (corte de cabos e alteração de métricas) em tempo real.
+4. **Vivenciem o problema da Contagem até o Infinito (*Count-to-Infinity*)** e compreendam a eficácia imediata do **Split Horizon com Poisoned Reverse** (técnica padrão do protocolo RIP).
+
+---
+
+## ✨ Recursos Principais
+
+### 🎮 Topologia e Física Interativa (Canvas 60 FPS)
+* **Arrasto Livre (*Drag & Drop*)**: reposicione roteadores em tempo real para organizar a visualização como preferir.
+* **Simulação de Falha de Cabo**: dê um clique sobre qualquer enlace para simular o rompimento físico da fibra/cabo (o enlace fica tracejado em vermelho com indicador `✕`).
+* **Edição Dinâmica de Métricas**: use `Shift + Clique` no enlace para alterar o custo da rota e acompanhar a reação dos roteadores.
+* **Criação de Topologias**: botões integrados para inserir nós adicionais e conectar novos enlaces sob demanda.
+
+### 📦 Motor de Animação e Partículas
+* Pacotes circulares trafegam suavemente pelos cabos com selos indicando o vetor transmitido `[Destino: Custo]`.
+* Sistema de partículas e anéis de impacto sonoro/visual disparam no momento em que um roteador processa novas tabelas.
+
+### 📊 Tabelas de Roteamento em Tempo Real
+* Visualização lado a lado de todos os nós: **Destino**, **Métrica (Custo)** e **Próximo Salto (*Next Hop*)**.
+* Feedback cromático inteligente:
+  * 🟢 **Verde**: rotas atualizadas ou otimizadas no último round.
+  * 🔴 **Vermelho**: rotas inalcançáveis marcadas com $\infty$ (métrica 16).
+  * 🟡 **Amarelo**: enlace sob falha ou transição de estado.
+
+### 🔬 Inspetor Matemático de Bellman-Ford
+* Ao clicar em qualquer nó ou linha de tabela, abre-se o modal de inspeção que decompõe detalhadamente a equação:
+  $$\mathbf{D_x(y) = \min_v \Big\{ c(x, v) + D_v(y) \Big\}}$$
+* Tabela comparativa com cada vizinho $v$, custo direto $c(x, v)$, métrica anunciada $D_v(y)$, soma calculada e indicação explícita do menor caminho selecionado.
+
+### 🎙️ Modo Apresentação com Storyboards Narrados
+* Narrador integrado com explicações prontas em português para cada etapa da aula/apresentação.
+* Controles multimídia: **Tocar Demonstração**, **Avançar Etapa**, **Voltar**, **Pausar** e seletor de velocidade ($0.5\times$ a $3\times$).
+
+---
+
+## 🎬 Cenários Didáticos Inclusos
+
+O simulador vem equipado de fábrica com **6 cenários pré-configurados**:
+
+| # | Cenário | Descrição Didática |
+|---|---|---|
+| **1** | **Convergência Básica (Triângulo A-B-C)** | Demonstração do cálculo de Bellman-Ford e escolha de caminho indireto ($A \to B \to C$ com custo 3 em vez da rota direta de custo 5). |
+| **2** | **Contagem até o Infinito (*Count-to-Infinity*)** | Simulação sem mitigação da queda do enlace $B-C$. Os roteadores $A$ e $B$ criam um loop de ilusão mútua onde a métrica sobe gradualmente até atingir 16. |
+| **3** | **Solução com Poisoned Reverse** | Mesma topologia e falha do Cenário 2, mas com o *Envenenamento Reverso* ativado. O nó $A$ avisa $B$ que $D_A(C) = \infty$, eliminando o loop em **apenas 1 rodada**. |
+| **4** | **Roteamento Dinâmico em Malha** | Rede com redundância que desvia o tráfego para caminhos secundários em caso de falha e reconverge automaticamente quando o enlace é restaurado. |
+| **5** | **Exemplo Canônico de Kurose & Ross** | A topologia clássica de 6 nós apresentada no livro *Redes de Computadores e a Internet: Uma Abordagem Top-Down* (Capítulo 5). |
+| **6** | **Rede do Campus Universitário UFPA (Belém)** | Topologia temática representando o campus da UFPA: **Reitoria**, **Setor Básico**, **Setor Profissional**, **Mirante do Rio** e **Datacenter/CTIC**. |
+
+---
+
+## 🧠 Fundamentação Teórica
+
+### 1. A Equação de Bellman-Ford
+No protocolo RIP e na família de algoritmos por vetor de distâncias, cada nó $x$ envia periodicamente cópias de suas estimativas de menor custo para todos os seus vizinhos $v \in \text{Vizinhos}(x)$.
+
+Quando $x$ recebe o vetor de distâncias $D_v$ de um vizinho $v$, ele atualiza seu próprio vetor aplicando a relação de Bellman-Ford:
+
+$$D_x(y) = \min_{v} \Big\{ c(x, v) + D_v(y) \Big\}, \quad \forall y \in N$$
+
+### 2. O Problema da Contagem até o Infinito
+> *"Boas notícias viajam rápido; más notícias viajam devagar."*
+
+Considere a topologia linear $A \overset{1}{\longleftrightarrow} B \overset{1}{\longleftrightarrow} C$:
+1. Em regime normal, $B$ alcança $C$ com custo $1$, e $A$ alcança $C$ via $B$ com custo $2$.
+2. Quando o enlace $B-C$ é rompido, $B$ perde a rota direta para $C$.
+3. Entretanto, $A$ havia anunciado anteriormente que alcançava $C$ com custo $2$.
+4. Sem mecanismos de mitigação, $B$ assume erroneamente: *"Posso alcançar $C$ passando por $A$, com custo $c(B,A) + D_A(C) = 1 + 2 = 3$!"*.
+5. Na iteração seguinte, $A$ descobre que $B$ subiu o custo para 3 e calcula: $1 + 3 = 4$.
+6. Esse ciclo vicioso repete-se indefinidamente ($3 \to 4 \to 5 \to \dots \to 16$) até que o teto de infinito ($\infty = 16$ no RIP) seja alcançado, desperdiçando ciclos de CPU e causando descarte massivo de pacotes em trânsito.
+
+### 3. Técnicas de Mitigação no RIP
+
+```mermaid
+flowchart LR
+    subgraph SemMitigacao["Sem Mitigação"]
+        direction TB
+        S1["A anuncia D_A(C) = 2 para B"] --> S2["B-C cai"]
+        S2 --> S3["B usa A: custo 3"]
+        S3 --> S4["Loop infinito até 16"]
+    end
+
+    subgraph ComPoison["Com Poisoned Reverse"]
+        direction TB
+        P1["Como A vai a C via B,<br/>A mente para B: D_A(C) = ∞"] --> P2["B-C cai"]
+        P2 --> P3["B calcula: c(B,A) + ∞ = ∞"]
+        P3 --> P4["Rota marcada como inalcançável<br/>em apenas 1 rodada!"]
+    end
+
+    style SemMitigacao fill:#3b1111,stroke:#e74c3c,stroke-width:2px
+    style ComPoison fill:#0f381e,stroke:#2ecc71,stroke-width:2px
+```
+
+* **Split Horizon (Horizonte Dividido)**: impede que um roteador anuncie uma rota de volta pela mesma interface pela qual ela foi aprendida.
+* **Poisoned Reverse (Envenenamento Reverso)**: além de omitir a rota, o roteador anuncia ativamente a distância para o destino como **$\infty$ (16)** para o vizinho que é o seu próprio *Next Hop*.
+
+---
+
+## 🎤 Roteiro para Apresentação Oral (10 min)
+
+Guia passo a passo pronto para ser utilizado em sala de aula perante o professor e colegas:
+
+```
+[00:00 - 01:30] INTRODUÇÃO & OBJETIVOS
+• "Boa noite a todos. Nosso projeto é um simulador interativo voltado ao estudo
+  do algoritmo de Vetores de Distância, Bellman-Ford e o protocolo RIP."
+• Projetar a tela inicial e destacar a interface com Canvas a 60 FPS e as tabelas
+  de roteamento dinâmicas.
+
+[01:30 - 03:30] DEMONSTRAÇÃO 1: CONVERGÊNCIA BÁSICA
+• Carregar o "Cenário 1: Convergência Básica (Triângulo)".
+• Clicar em "⏭ Avançar 1 Passo": mostrar os pacotes coloridos trafegando pelos cabos.
+• Explicar a tabela do nó A: mesmo tendo enlace direto para C com custo 5,
+  ele aprende via B a rota com custo 3 (1 + 2).
+• Abrir o "Inspetor Matemático" e exibir a comparação da equação no modal.
+
+[03:30 - 06:00] DEMONSTRAÇÃO 2: CONTAGEM ATÉ O INFINITO (O Ponto Crítico)
+• Carregar o "Cenário 2: Contagem até o Infinito".
+• Simular a falha: clicar no botão vermelho "⚡ Simular Queda do Enlace B — C".
+• Avançar os passos em velocidade 1x e acompanhar a tabela:
+  "Vejam os custos subindo: 3, 4, 5, 6... 16."
+• Explicar a ilusão de roteamento: B acha que A chega a C, e A acha que B chega a C.
+
+[06:00 - 08:00] DEMONSTRAÇÃO 3: POISONED REVERSE EM AÇÃO
+• Carregar o "Cenário 3: Solução com Poisoned Reverse".
+• Destacar que agora o Poisoned Reverse está ativo.
+• Provocar novamente a queda do cabo B — C.
+• Avançar 1 único passo: B reconhece instantaneamente a métrica ∞ via A.
+• Concluir: o loop que levou 15 iterações no Cenário 2 foi resolvido em 1 rodada.
+
+[08:00 - 10:00] TOPOLOGIA UFPA & CONCLUSÃO
+• Carregar o "Cenário 6: Rede do Campus UFPA".
+• Demonstrar o arrasto de roteadores e a resiliência da malha universitária.
+• Abrir para dúvidas e considerações do professor.
+```
+
+---
+
+## 🏗️ Arquitetura do Projeto
+
+O simulador foi concebido seguindo princípios de arquitetura modular, com separação estrita entre motor matemático, camada de renderização gráfica e interface:
+
+```mermaid
+flowchart TD
+    App["js/app.js<br/>(Ponto de Entrada & Orquestração)"]
+
+    subgraph Engine["Motor de Simulação (js/engine/)"]
+        Graph["graph.js<br/>(Topologia e Estados de Enlaces)"]
+        Router["router.js<br/>(Tabelas de Roteamento e Estado Local)"]
+        BF["bellman_ford.js<br/>(Cálculo Matemático & Decomposição)"]
+        Sim["simulator.js<br/>(Fila de Eventos, Rounds & Convergência)"]
+    end
+
+    subgraph Visualizer["Camada Gráfica (js/visualizer/)"]
+        Canvas["canvas.js<br/>(Renderizador Canvas 2D HiDPI & Arrasto)"]
+        Anim["animations.js<br/>(Interpolação de Pacotes & Partículas)"]
+    end
+
+    subgraph UI["Interface com Usuário (js/ui/)"]
+        Controls["controls.js<br/>(Play/Pause/Step/Velocidade/Falhas)"]
+        Tables["tables_view.js<br/>(Renderizador das Tabelas Dinâmicas)"]
+        Inspector["inspector.js<br/>(Modal de Inspeção da Fórmula)"]
+    end
+
+    subgraph Presets["Dados Didáticos (js/data/)"]
+        DataPresets["presets.js<br/>(6 Cenários & Storyboards Narrados)"]
+    end
+
+    App --> Engine
+    App --> Visualizer
+    App --> UI
+    App --> Presets
+
+    Sim --> BF
+    Sim --> Router
+    Sim --> Graph
+    Canvas --> Anim
+    UI --> Tables
+    UI --> Controls
+    UI --> Inspector
+```
 
 ---
 
 ## 🚀 Como Executar
 
-O projeto foi construído em **HTML5, CSS3 moderno e JavaScript ES6 puro (modular)**, sem necessidade de compilação ou instalação de dependências pesadas (`node_modules`).
+O projeto utiliza **JavaScript puro (ES6 Modules)** e não requer compilação, bundlers ou instalação de dependências pesadas (`node_modules`).
 
-### Opção 1: Abrir diretamente no navegador (Zero Configuração)
-Basta dar um duplo clique no arquivo [`index.html`](file:///home/eclipse/Documents/UFPA/Redes%20II/index.html) ou abri-lo no seu navegador preferido (Google Chrome, Mozilla Firefox, Microsoft Edge ou Safari).
+### Método 1: Direto no Navegador (Zero Configuração)
+Basta clonar o repositório e abrir o arquivo [`index.html`](file:///home/eclipse/Documents/UFPA/Redes%20II/index.html) em qualquer navegador moderno:
 
-### Opção 2: Via servidor local simples
-Se desejar executar através de um servidor HTTP local:
+```bash
+git clone https://github.com/Daniloloureiro/simulador-vetores-distancia.git
+cd simulador-vetores-distancia
+```
+Abra o arquivo `index.html` com dois cliques ou com o comando:
+```bash
+xdg-open index.html # No Linux
+open index.html     # No macOS
+start index.html    # No Windows
+```
+
+### Método 2: Servidor Local (Recomendado para suporte completo a módulos ES6)
 ```bash
 # Com Python 3:
 python3 -m http.server 8080
@@ -51,128 +241,65 @@ python3 -m http.server 8080
 # Ou com Node.js:
 npx serve .
 ```
-Em seguida, acesse no navegador: `http://localhost:8080`.
+Acesse no seu navegador: **`http://localhost:8080`**.
 
 ---
 
-## 🧪 Testes Automatizados da Lógica
+## 🧪 Testes Automatizados
 
-O motor do algoritmo possui uma suíte de testes formais em Node.js que valida matematicamente a convergência, a ocorrência exata da contagem até o infinito e o bloqueio de loops pelo Poisoned Reverse:
+O repositório inclui uma suíte completa de testes automatizados formais em Node.js que valida matematicamente o algoritmo de Bellman-Ford, a contagem até o infinito e a integridade de todos os 6 presets:
 
 ```bash
-node tests/test_engine.js
+# Executar a suíte completa de testes:
+npm test
 ```
+
+Saída esperada:
+* ✅ **Teste 1**: Convergência formal do grafo em triângulo.
+* ✅ **Teste 2**: Reprodução fidedigna das 15 rodadas da Contagem até o Infinito até o teto $\infty = 16$.
+* ✅ **Teste 3**: Mitigação instantânea em 1 rodada com Poisoned Reverse.
+* ✅ **Teste 4**: Roteamento dinâmico e reconvergência após reparo de cabo.
+* ✅ **Validação dos Presets**: 100% dos nós, enlaces e etapas dos 6 storyboards validados.
 
 ---
 
-## 📖 Fundamentação Teórica Resumida
+## ⌨️ Atalhos & Controles Interativos
 
-### 1. A Equação de Bellman-Ford
-No algoritmo de Vetores de Distância, cada roteador $x$ mantém um vetor de estimativas de menor custo para todos os destinos $y \in N$. Periodicamente, ou quando os custos mudam, cada nó envia seu vetor para seus vizinhos imediatos.
-
-Ao receber o vetor $D_v$ de um vizinho $v$, o roteador $x$ atualiza sua própria tabela utilizando a equação de Bellman-Ford:
-$$D_x(y) = \min_v \{ c(x, v) + D_v(y) \}$$
-onde:
-- $c(x, v)$ é o custo do enlace direto de $x$ para $v$.
-- $D_v(y)$ é o custo informado pelo vizinho $v$ para alcançar o destino $y$.
-
-### 2. O Problema da Contagem até o Infinito (*Count-to-Infinity*)
-* "Boas notícias se espalham rápido": a descoberta de um novo caminho menor converge em poucos passos.
-* "Más notícias se espalham devagar": considere a rede $A - B - C$, com enlaces de custo 1.
-  - Inicialmente, $B$ chega a $C$ com custo 1 (direto), e $A$ chega a $C$ com custo 2 (via $B$).
-  - Se o enlace $B-C$ é rompido, $B$ precisa recalcular a rota para $C$.
-  - Como $A$ havia anunciado que chegava a $C$ com custo 2, $B$ pensa: *"Posso ir até $C$ passando por $A$ com custo $1 + 2 = 3$!"*.
-  - No passo seguinte, $A$ vê que $B$ agora tem custo 3, e atualiza o seu próprio para $1 + 3 = 4$.
-  - Esse processo se repete ($5, 6, 7 \dots$) até atingir o limiar de infinito ($\infty = 16$). Durante todo esse tempo, pacotes destinados a $C$ ficam presos em um loop eterno entre $A$ e $B$.
-
-### 3. Técnicas de Mitigação
-* **Split Horizon (Horizonte Dividido)**: Um roteador nunca anuncia uma rota de volta para o vizinho de quem ele aprendeu essa rota.
-* **Poisoned Reverse (Envenenamento Reverso)**: Se o roteador $A$ roteia para $C$ passando por $B$, $A$ anuncia explicitamente para $B$ que sua distância para $C$ é **infinita** ($D_A^{(B)}(C) = \infty$). Assim, quando o enlace $B-C$ cai, $B$ sabe imediatamente que $A$ não pode ser usado como rota alternativa para $C$, eliminando o loop na hora!
-
----
-
-## 🎤 Roteiro Sugerido para Apresentação Oral
-
-Utilize este roteiro passo a passo durante a apresentação para o professor e seus colegas:
-
-```
-[MINUTO 0:00 - 1:30] INTRODUÇÃO
-1. "Boa noite a todos. Nosso trabalho demonstra de forma interativa e visual o algoritmo
-   de Vetores de Distância, baseado na equação de Bellman-Ford e utilizado no protocolo RIP."
-2. Mostre a tela inicial do simulador no projetor.
-3. Aponte a fórmula de Bellman-Ford destacada no painel superior direito.
-
-[MINUTO 1:30 - 3:30] CENÁRIO 1: CONVERGÊNCIA BÁSICA
-1. Selecione o "Cenário 1: Convergência Básica (Triângulo)".
-2. Clique no botão "⏭ Avançar 1 Passo":
-   - Mostre as bolinhas coloridas viajando pelos cabos carregando os vetores [dest: custo].
-   - Mostre a tabela do Roteador A atualizando: ele tinha enlace direto para C com custo 5,
-     mas ao receber o vetor de B (custo 2) somado ao enlace c(A,B)=1, calcula 1+2=3.
-3. Clique no nó A e abra o "Inspetor Matemático":
-   - Mostre a tabela de termos destacando a comparação:
-     min { c(A,B) + D_B(C) = 1 + 2 = 3 ; c(A,C) + D_C(C) = 5 + 0 = 5 } = 3.
-
-[MINUTO 3:30 - 6:00] CENÁRIO 2: CONTAGEM ATÉ O INFINITO (O Ponto Alto da Apresentação)
-1. Selecione o "Cenário 2: Contagem até o Infinito".
-2. Mostre que a rede está convergida: A->B->C.
-3. Diga: "Agora vamos simular uma falha física: o cabo entre B e C foi cortado".
-4. Clique no botão vermelho "⚡ Simular Queda do Enlace B — C" (ou clique direto no cabo).
-   - O cabo fica vermelho tracejado com um ✕.
-5. Avance os passos (ou aperte Play com velocidade 1x):
-   - Aponte a tabela: "Vejam o custo subindo: 3, 4, 5, 6, 7...".
-   - Explique por que ocorre: "B acha que A chega a C, e A acha que B chega a C.
-     Eles criaram um loop de roteamento que só para quando a métrica atinge 16 (infinito do RIP)".
-
-[MINUTO 6:00 - 8:00] CENÁRIO 3: SOLUÇÃO COM POISONED REVERSE
-1. Selecione o "Cenário 3: Solução com Poisoned Reverse".
-2. Explique: "Aqui ativamos o Poisoned Reverse. Como A usa B para chegar a C,
-   A mente para B dizendo que sua distância para C é 16 (infinita)".
-3. Clique novamente em "⚡ Simular Queda do Enlace B — C".
-4. Avance 1 Passo:
-   - Mostre que B não entra em loop, pois sabe que via A é infinito.
-   - A rota é marcada imediatamente com ∞ em 1 único passo.
-   - "O loop foi completamente evitado graças ao envenenamento reverso".
-
-[MINUTO 8:00 - 10:00] INTERATIVIDADE LIVRE & CONCLUSÃO
-1. Arraste nós, mostre o Cenário 4 (Rede em Malha com 5 nós) para demonstrar redundância.
-2. Abra para perguntas do professor e turma.
-```
-
----
-
-## 📁 Estrutura de Arquivos
-
-```
-Redes II/
-├── index.html              # Interface web principal da aplicação
-├── package.json            # Metadados do projeto e script de testes
-├── README.md               # Documentação acadêmica e roteiro de apresentação
-├── css/
-│   ├── style.css           # Grid, layout responsivo e tema escuro
-│   └── components.css      # Estilização de botões, tabelas e inspetor de fórmulas
-├── js/
-│   ├── app.js              # Ponto de entrada e conexão entre módulos
-│   ├── engine/
-│   │   ├── graph.js        # Grafo de nós e enlaces com status ativo/quebrado
-│   │   ├── router.js       # Estado individual e tabelas de cada roteador
-│   │   ├── bellman_ford.js # Algoritmo formal de Bellman-Ford e decomposição de termos
-│   │   └── simulator.js    # Fila de eventos, rounds de simulação e convergência
-│   ├── visualizer/
-│   │   ├── canvas.js       # Renderizador Canvas 2D a 60 FPS com arrasto e HiDPI
-│   │   └── animations.js   # Interpolação de pacotes e sistema de partículas
-│   ├── ui/
-│   │   ├── controls.js     # Controles (Play/Pause/Step/Speed/Presets)
-│   │   ├── tables_view.js  # Renderizador das tabelas com realce de alterações
-│   │   └── inspector.js    # Inspetor matemático passo a passo da equação
-│   └── data/
-│       └── presets.js      # Cenários didáticos pré-configurados
-└── tests/
-    └── test_engine.js      # Testes automatizados formais
-```
+| Ação | Como Executar |
+|---|---|
+| **Mover Roteador** | Clique e arraste o nó pelo Canvas. |
+| **Cortar / Restaurar Cabo** | Clique diretamente em cima de qualquer enlace. |
+| **Editar Custo da Rota** | Pressione `Shift` + clique sobre o enlace. |
+| **Inspecionar Matemática** | Clique em qualquer nó ou linha da tabela de roteamento. |
+| **Passo a Passo** | Clique em `⏭ Avançar 1 Passo` no painel superior. |
+| **Execução Contínua** | Clique em `▶ Executar Simulação` (ajuste a velocidade de $0.5\times$ a $3\times$). |
+| **Trocar de Cenário** | Selecione qualquer uma das 6 opções no menu de *Presets*. |
 
 ---
 
 ## 📚 Referências Bibliográficas
-1. **KUROSE, James F.; ROSS, Keith W.** *Redes de Computadores e a Internet: Uma Abordagem Top-Down*. 7ª Edição. Pearson, 2017. (Capítulo 5: A Camada de Rede - Plano de Controle).
-2. **TANENBAUM, Andrew S.; WETHERALL, David.** *Redes de Computadores*. 5ª Edição. Pearson, 2011. (Seção 5.2.4: Roteamento por Vetor de Distâncias).
-3. **MALKIN, G.** *RIP Version 2 (RFC 2453)*. Network Working Group, IETF, 1998.
+
+1. **KUROSE, James F.; ROSS, Keith W.** *Redes de Computadores e a Internet: Uma Abordagem Top-Down*. 7ª Edição. Pearson, 2017. *(Capítulo 5: A Camada de Rede - Plano de Controle)*.
+2. **TANENBAUM, Andrew S.; WETHERALL, David.** *Redes de Computadores*. 5ª Edição. Pearson, 2011. *(Seção 5.2.4: Roteamento por Vetor de Distâncias)*.
+3. **MALKIN, G.** *RIP Version 2 (RFC 2453)*. Network Working Group, IETF, 1998. Disponível em: [https://datatracker.ietf.org/doc/html/rfc2453](https://datatracker.ietf.org/doc/html/rfc2453).
+
+---
+
+## 👨‍💻 Autor & Créditos
+
+<div align="center">
+
+Desenvolvido por **Danilo Loureiro**  
+Universidade Federal do Pará — **UFPA**  
+Faculdade de Engenharia da Computação e Telecomunicações  
+
+[![GitHub](https://img.shields.io/badge/GitHub-Daniloloureiro-181717?style=flat-square&logo=github)](https://github.com/Daniloloureiro)
+[![Email](https://img.shields.io/badge/Email-daniloloureiro.dl%40gmail.com-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:daniloloureiro.dl@gmail.com)
+
+</div>
+
+---
+
+<div align="center">
+  <sub>Licenciado sob a <a href="LICENSE">MIT License</a>. Distribuído livremente para fins educacionais e acadêmicos.</sub>
+</div>
